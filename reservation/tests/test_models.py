@@ -1,5 +1,5 @@
 import pytest
-from reservations.models import Hotel, Chambre, Reservation, PhotoChambre
+from reservation.models import Hotel, Chambre, Reservation, PhotoChambre
 from user.models import User
 from datetime import date
 

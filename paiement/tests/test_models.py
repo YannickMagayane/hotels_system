@@ -1,6 +1,6 @@
 import pytest
 from paiement.models import Paiement
-from reservations.models import Reservation, Chambre, Hotel
+from reservation.models import Reservation, Chambre, Hotel
 from user.models import User
 from datetime import date
 
