@@ -1,5 +1,5 @@
 from django.db import models
-from user.model import User
+from user.models import User
 
 
 class Hotel(models.Model):
