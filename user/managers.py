@@ -1,4 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
+from django.core.exceptions import ValidationError  
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -7,6 +9,11 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('Vous devez mettre une adresse mail')
         email = self.normalize_email(email)
+
+        # Vérification de l'unicité avant la création
+        if self.model.objects.filter(email=email).exists():
+            raise ValidationError("Un utilisateur avec cet email existe déjà.")
+
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
