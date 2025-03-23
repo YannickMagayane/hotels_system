@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto mt-6 max-w-lg bg-gray-800 p-6 rounded-lg shadow-lg">
+    <h2 class="text-center text-gray-200 text-2xl font-bold mb-4">Détails de la Réservation</h2>
+    
+    <p class="text-gray-300"><strong>Client :</strong> {{ reservation.client.nom }}</p>
+    <p class="text-gray-300"><strong>Chambre :</strong> {{ reservation.chambre.numero }}</p>
+    <p class="text-gray-300"><strong>Date :</strong> {{ reservation.date }}</p>
+
+    <div class="mt-4 text-center">
+        <a href="{% url 'reservation_list' %}" 
+           class="px-6 py-2 bg-gray-600 text-gray-200 rounded-lg hover:bg-gray-500">
+           Retour
+        </a>
+    </div>
+</div>
+{% endblock %}

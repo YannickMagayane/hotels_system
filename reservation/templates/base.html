@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FaciliHôtel{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-yVTr4pL6K+E+aZoRQ1nH0Hch80IYPi2acBzX4TeK/IaGgX1phzoyx5XOWPmq0U0Fkz7BYX8MwkpQYl2opF6vRg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-cover bg-center h-screen w-full" >
+
+    <!-- Navbar / Menu -->
+    <!-- Navbar / Menu -->
+<nav class="glass-nav p-4 shadow-md fixed top-0 left-1/2 transform -translate-x-1/2 w-3/4 max-w-5xl flex items-center justify-between z-20">
+    <div class="flex items-center">
+        <a href="{% url 'hotel_list' %}" class="text-white font-bold text-2xl flex items-center">
+            <i class="fa-solid fa-hotel mr-2"></i>
+            FaciliHôtel
+        </a>
+    </div>
+    <div class="space-x-4 text-white flex items-center">
+        <a href="{% url 'hotel_list' %}" class="hover:text-gray-200 transition flex items-center">
+            <i class="fa-solid fa-building mr-1"></i> Hôtels
+        </a>
+        <a href="{% url 'chambre_list' %}" class="hover:text-gray-200 transition flex items-center">
+            <i class="fa-solid fa-bed mr-1"></i> Chambres
+        </a>
+        <a href="{% url 'reservation_list' %}" class="hover:text-gray-200 transition flex items-center">
+            <i class="fa-solid fa-calendar-check mr-1"></i> Réservations
+        </a>
+        <a href="{% url 'hotel_create' %}" class="hover:text-gray-200 transition flex items-center">
+            <i class="fa-solid fa-plus mr-1"></i> Ajouter un Hôtel
+        </a>
+        <a href="{% url 'chambre_create' %}" class="hover:text-gray-200 transition flex items-center">
+            <i class="fa-solid fa-plus mr-1"></i> Ajouter une Chambre
+        </a>
+        <a href="{% url 'reservation_create' %}" class="hover:text-gray-200 transition flex items-center">
+            <i class="fa-solid fa-calendar-plus mr-1"></i> Nouvelle Réservation
+        </a>
+    </div>
+</nav>
+
+
+    <!-- Contenu principal -->
+    <main class="relative  w-full pt-0 bg-gray-900"> <!-- Enlever l'espace entre le menu et le contenu -->
+        <div class=" text-center text-white">
+            {% block content %}
+            <!-- Le contenu spécifique de chaque page sera inséré ici -->
+            {% endblock %}
+        </div>
+    </main>
+    
+
+   
+
+</body>
+</html>

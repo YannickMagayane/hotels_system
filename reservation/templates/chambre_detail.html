@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<br/><br/><br/><br/>
+<div class="container mt-4">
+    
+    <div class="mx-auto p-6 rounded-2xl shadow-lg bg-gray-800 bg-opacity-90 backdrop-blur-md" style="max-width: 700px;">
+        {% if chambre.photos.all %}
+        <img src="{{ chambre.photos.all.0.image.url }}" alt="Photo de la chambre" class="w-full h-64 object-cover">
+    {% else %}
+        <img src="https://via.placeholder.com/400x300?text=Aucune+photo" alt="Aucune photo disponible" class="w-full h-64 object-cover">
+    {% endif %}        
+        <div class="mt-4">
+            <h5 class="text-xl font-bold text-gray-200">Chambre {{ chambre.numero }}</h5>
+            <p class="text-gray-300"><strong>Prix :</strong> {{ chambre.prix }} €</p>
+            <p class="text-gray-300"><strong>Hôtel :</strong> {{ chambre.hotel.nom }}</p>
+            <p class="text-gray-300"><strong>Composition :</strong> {{ chambre.numero }}</p>
+            
+            <a href="{% url 'hotel_list' %}" 
+               class="mt-4 inline-block px-6 py-2 bg-blue-600 text-gray-200 font-semibold rounded-lg transition transform hover:bg-blue-500 hover:scale-105">
+               Retour à la liste
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

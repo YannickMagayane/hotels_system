@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil - FaciliHôtel{% endblock %}
+
+{% block content %}
+<!-- Carousel en pleine largeur et hauteur -->
+<section class="relative w-full h-screen overflow-hidden"> 
+    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+        <div class="text-center text-white">
+            <h1 class="text-5xl font-bold drop-shadow-lg">Bienvenue au Royal Hotel</h1>
+            <p class="text-lg mt-4 bg-black bg-opacity-40 px-6 py-2 rounded-full inline-block">
+                Luxe, confort et sérénité vous attendent.
+            </p>
+        </div>
+    </div>
+    <!-- Swiper pour le carrousel d'images -->
+    <div class="swiper mySwiper h-full">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="https://img.freepik.com/photos-gratuite/interieur-moderne-confortable-chambre-hotel_1232-1822.jpg" 
+                     class="w-full h-full object-cover" alt="Suite Royale">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://www.kayak.fr/rimg/himg/f7/e9/a8/ice-484010-115042081-050537.jpg" 
+                     class="w-full h-full object-cover" alt="Piscine de luxe">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://www.korusgroup.com/wp-content/uploads/2023/02/luxury-hotel-design-build.jpg" 
+                     class="w-full h-full object-cover" alt="Restaurant Étoilé">
+            </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<!-- Section des hôtels - Carrousel horizontal des noms (effet logo partenaire) -->
+<section class="w-full py-20 bg-gray-900">
+    <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl font-bold text-white-900 text-center mb-12">Nos Hôtels</h2>
+        <!-- Swiper pour les noms des hôtels -->
+        <div class="swiper mySwiperHotels">
+            <div class="swiper-wrapper">
+                {% for hotel in hotels %}
+                <div class="swiper-slide flex items-center justify-center">
+                    <div class="group relative transition transform hover:scale-110 duration-300">
+                        <div class="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 group-hover:opacity-30 transition duration-300"></div>
+                        <span class="relative text-3xl md:text-4xl font-extrabold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-500">
+                            {{ hotel.nom }}
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 🔹 Inclusion de la liste des chambres -->
+
+<!-- 🔹 Inclusion de la liste des chambres -->
+<section class="py-16 bg-gray-700">
+    <div class="container mx-auto py-10">
+        <h2 class="text-4xl font-bold text-white text-center mb-8">Nos Chambres Disponibles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for chambre in chambres %}
+            <div class="relative group rounded-lg overflow-hidden shadow-lg">
+                <!-- Affichage de l'image : première photo ou image par défaut -->
+                {% if chambre.photos.all %}
+                    <img src="{{ chambre.photos.all.0.image.url }}" alt="Photo de la chambre" class="w-full h-64 object-cover">
+                {% else %}
+                    <img src="https://via.placeholder.com/400x300?text=Aucune+photo" alt="Aucune photo disponible" class="w-full h-64 object-cover">
+                {% endif %}
+    
+                <!-- Contenu de base de la card -->
+                <div class="p-4 bg-white">
+                    <h3 class="text-2xl font-semibold text-gray-800">Chambre {{ chambre.numero }}</h3>
+                    <p class="text-gray-600 mt-2 "><strong>Prix :</strong><strong> {{ chambre.prix }} $</strong></p>
+                    <p class="text-gray-600 mt-2 fa-bold"><strong>Type :</strong> <strong>{{ chambre.type }}</strong> </p>
+                    <p class="text-gray-600 mt-1"><strong>Hôtel :</strong> {{ chambre.hotel.nom }}</p>
+                </div>
+    
+                <!-- Overlay des détails affiché au survol -->
+                <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
+                    <h3 class="text-white text-xl font-bold mb-2">Détails</h3>
+                    <p class="text-white mb-4"><strong>Composition :</strong> {{ chambre.type }}</p>
+                    <a href="{% url 'chambre_detail' chambre.pk %}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                        Voir plus
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center col-span-full">Aucune chambre disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- Intégration SwiperJS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Carrousel d'images
+        new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+        
+        // Carrousel horizontal pour les noms d'hôtels
+        new Swiper(".mySwiperHotels", {
+            loop: true,
+            slidesPerView: 4,
+            slidesPerGroup: 1,
+            spaceBetween: 30,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            // Force l'utilisation de tous les slides pour la boucle :
+            loopedSlides: {{ hotels|length }},
+        });
+    });
+</script>
+{% endblock %}

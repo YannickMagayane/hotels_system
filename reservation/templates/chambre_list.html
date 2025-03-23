@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        {% for chambre in chambres %}
+        <div class="col-md-4 mb-4">
+            <div class="card chambre-card shadow-lg position-relative">
+                {% if chambre.photos.all %}
+                <img src="{{ chambre.photos.all.0.image.url }}" class="card-img-top" alt="Photo de la chambre">
+            {% else %}
+                <img src="URL_IMAGE_PAR_DEFAUT" class="card-img-top" alt="Aucune photo disponible">
+            {% endif %}                <div class="card-body">
+                    <h5 class="card-title">Chambre {{ chambre.numero }}</h5>
+                    <p class="card-text"><strong>Prix :</strong> {{ chambre.prix }} €</p>
+                    <p class="card-text"><strong>Hôtel :</strong> {{ chambre.hotel.nom }}</p>
+                </div>
+                <!-- Détails affichés au survol -->
+                <div class="hover-details">
+                    <h5 class="text-white">Détails de la Chambre</h5>
+                    <p class="text-white"><strong>Composition :</strong> {{ chambre.composition }}</p>
+                    <a href="{% url 'chambre_detail' chambre.pk %}" class="btn btn-light">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Aucune chambre disponible.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .chambre-card {
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .chambre-card:hover {
+        transform: scale(1.05);
+    }
+
+    .hover-details {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .chambre-card:hover .hover-details {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
