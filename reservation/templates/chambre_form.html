@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<br/><br/><br/><br/><br/>
+<div class="max-w-lg mx-auto bg-black p-6 shadow-md rounded-lg">
+    <h2 class="text-xl font-bold mb-4">{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} une Chambre</h2>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <div class="space-y-2">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">Enregistrer</button>
+        <a href="{% url 'chambre_list' %}" class="w-full inline-block text-center bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600">Annuler</a>
+    </form>
+</div><br/><br/>
+{% endblock %}

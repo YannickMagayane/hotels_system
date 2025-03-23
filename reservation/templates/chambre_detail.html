@@ -15,6 +15,8 @@
             <p class="text-gray-300"><strong>Hôtel :</strong> {{ chambre.hotel.nom }}</p>
             <p class="text-gray-300"><strong>Composition :</strong> {{ chambre.numero }}</p>
             
+            <a href="{% url 'photo_chambre_create' chambre.id %}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Ajouter une photo</a>
+        <a href="{% url 'chambre_update' chambre.id %}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">Modifier</a>
             <a href="{% url 'hotel_list' %}" 
                class="mt-4 inline-block px-6 py-2 bg-blue-600 text-gray-200 font-semibold rounded-lg transition transform hover:bg-blue-500 hover:scale-105">
                Retour à la liste
